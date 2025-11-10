@@ -1,8 +1,7 @@
 import random
 import time
 
-from draw import draw_d20, draw_d6, draw_d4
-
+from player import input
 def print_dramatic_text(text: str, delay=0.1):
     for char in text:
         print(char, end='', flush=True)
@@ -22,6 +21,7 @@ if __name__ == '__main__':
     print('Your name is ' + name + ' and your role is ' + role + '.')
     print_dramatic_text('Our adventure begins in a shady tavern ...')
 
-    input('Press Enter to roll a d6.')
-    roll = random.randint(1, 6)
-    draw_d6(roll)
+    player_1 = Player(name, role, strength)
+    roll = player_1.roll_20()
+    draw_20(roll)
+    return roll
