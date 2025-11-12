@@ -1,7 +1,8 @@
 import random
 import time
 
-from player import input
+import player
+
 def print_dramatic_text(text: str, delay=0.1):
     for char in text:
         print(char, end='', flush=True)
@@ -15,11 +16,29 @@ if __name__ == '__main__':
     # any buffs / debuffs?
     # any critical success / failure?
 
-    name = input('Name: ')
-    role = input('Role: ')
+    name = input('What is your name? ')
+    money = 10
 
-    print('Your name is ' + name + ' and your role is ' + role + '.')
-    print_dramatic_text('Our adventure begins in a shady tavern ...')
+    print ('lets see how lucky you are!')
+    
+def check_luck():
+    luck = random.randint(1, 100)
+    print(f"Your luck number is: {luck} out of 100") # Optional: show the number
+
+    if luck <= 25:
+        print('oh jeeves....')
+    elif luck <= 75: # Covers 26 to 75 inclusive
+        print('') # Prints a blank line
+    else: # Covers 76 to 100 inclusive
+        print('wow very lucky... for now..')
+
+# Call the function to run the code
+check_luck()
+        
+
+print('Hello ' + name + '!')
+print_dramatic_text('welcome to monotpoly! ... its like monopoly, but not! because you are broke')
+print ('you have ' + str(money) + ' dollars')
 
     player_1 = Player(name, role, strength)
     roll = player_1.roll_20()

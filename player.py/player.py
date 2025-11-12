@@ -1,11 +1,15 @@
 import random
 from draw import roll_d20
-class Player:
-    def __init__(self, name: str, role: str, strength: int):
+class player:
+    def __init__(self, name: str, role: str, strength: int, intelligence: int, speed: int):
         self.name = name
         self.role = role
-        self.strength = strength
-        self.hp = 100
+        self.luck = random.randint(1, 100)
+        self.money = 10
+
+def check_luck():
+    luck = random.randint(1, 100)
+    print(f"Your luck number is: {luck}")
 
 def roll_d20(self) -> int:
     roll = random.randint(1, 20)
