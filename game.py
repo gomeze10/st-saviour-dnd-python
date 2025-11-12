@@ -1,8 +1,9 @@
 import random
 import time
 
-import player
-
+from player import player
+from player import check_luck
+from draw import draw_d20
 def print_dramatic_text(text: str, delay=0.1):
     for char in text:
         print(char, end='', flush=True)
@@ -40,7 +41,8 @@ print('Hello ' + name + '!')
 print_dramatic_text('welcome to monotpoly! ... its like monopoly, but not! because you are broke')
 print ('you have ' + str(money) + ' dollars')
 
-    player_1 = Player(name, role, strength)
-    roll = player_1.roll_20()
-    draw_20(roll)
-    return roll
+print ('press A to roll dice')
+if input == 'A' or 'a':
+    player_1 = player(name)
+    roll = draw_d20(1)
+    draw_d20(roll)
