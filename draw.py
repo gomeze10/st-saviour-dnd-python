@@ -1,17 +1,16 @@
-#!/usr/bin/python
+import random
 
-# change the color of the dice by changing the text at the beginning of the print statements
-# \033[1;30m (Black)
-# \033[1;31m (Red)
-# \033[1;32m (Green)
-# \033[1;33m (Yellow)
-# \033[1;34m (Blue)
-# \033[1;35m (Purple)
+# ANSI escape codes for colors
+BLACK = "\033[1;30m"
+RED = "\033[1;31m"
+GREEN = "\033[1;32m"
+YELLOW = "\033[1;33m"
+BLUE = "\033[1;34m"
+PURPLE = "\033[1;35m"
+RESET = "\033[0m" # Resets the color to default
 
-# for additional formating options, see: https://stackabuse.com/how-to-print-colored-text-in-python/
-
-def draw_d4(value: int) -> None:
-    print("""
+def draw_d4(value: int, color: str = RESET) -> None:
+    print(color + """
           ;;
         ,;  ;,
        ,;    ;,
@@ -23,10 +22,10 @@ def draw_d4(value: int) -> None:
  ,;                ;, 
 ,;                  ;,
 ::::::::::::::::::::::
-    """.format(value))
+    """.format(value) + RESET)
 
-def draw_d6(value: int) -> None:
-    print("""
+def draw_d6(value: int, color: str = RESET) -> None:
+    print(color + """
  ::::::::::::::
  ::          ::  
  ::          ::
@@ -34,14 +33,13 @@ def draw_d6(value: int) -> None:
  ::          ::
  ::          ::                
  :::::::::::::: 
-
     """.format(value))
 
 
-def draw_d20(value: int) -> None:
-    # account for single and double digit numbers moving parts of the dice
+def draw_d20(value: int, color: str = RESET) -> None:
+    # Account for single and double digit numbers moving parts of the dice
     if value > 9:
-        return("""             
+        d20_art = color + """             
             ,:::,
        ,,,:;  :  ;:,,, 
    ,,,:       :       :,,, 
@@ -50,33 +48,38 @@ def draw_d20(value: int) -> None:
 ;  ;        ;   ;        ;  ;
 ;   ;      ;     ;      ;   ;
 ;    ;    ;       ;    ;    ;
-""" +
-        {random.randint(1,20)}
-    
-""";      ;:...........:;      ;
+;    ;   ;  {}  ;   ;   ;
+;      ;:...........:;      ;
 ;     , ;           ; ,     ;
 ;   ,'   ;         ;   ',   ;
 '';'      ;       ;      ';''
    ''';    ;     ;    ;'''         
        ''':;;   ;;:'''
             ':::' 
-    """)    
-#     else: 
-#     print("""             
-#             ,:::,
-#        ,,,:;  :  ;:,,, 
-#    ,,,:       :       :,,, 
-# ,,;...........:...........;,,
-# ; ;          ;';          ; ;
-# ;  ;        ;   ;        ;  ;
-# ;   ;      ;     ;      ;   ;
-# ;    ;    ;       ;    ;    ;
-# ;     ;  ;    {}    ;  ;     ;
-# ;      ;:...........:;      ;
-# ;     , ;           ; ,     ;
-# ;   ,'   ;         ;   ',   ;
-# '';'      ;       ;      ';''
-#    ''';    ;     ;    ;'''         
-#        ''':;;   ;;:'''
-#             ':::' 
-#     """.format(value))
+    """.format(value) + RESET
+    else: 
+        d20_art = color + """             
+            ,:::,
+       ,,,:;  :  ;:,,, 
+   ,,,:       :       :,,, 
+,,;...........:...........;,,
+; ;          ;';          ; ;
+;  ;        ;   ;        ;  ;
+;   ;      ;     ;      ;   ;
+;    ;    ;       ;    ;    ;
+;     ;  ;    {}    ;  ;     ;
+;      ;:...........:;      ;
+;     , ;           ; ,     ;
+;   ,'   ;         ;   ',   ;
+'';'      ;       ;      ';''
+   ''';    ;     ;    ;'''         
+       ''':;;   ;;:'''
+            ':::' 
+    """.format(value) + RESET
+    print(d20_art)
+
+# Example usage:
+# draw_d4(3, GREEN)
+# draw_d6(5, RED)
+# draw_d20(17, BLUE)
+# draw_d20(8, YELLOW)
