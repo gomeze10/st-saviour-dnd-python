@@ -8,7 +8,7 @@ class Player:
 
     def check_luck(self) -> int:
         luck = random.randint(1, 100)
-        print(f"Your luck number is: {luck}")
+        print(f"Your luck number is: {luck} out of 100")
         return luck
 
     def roll_d6(self) -> int:
