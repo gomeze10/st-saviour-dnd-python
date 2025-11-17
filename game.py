@@ -14,7 +14,11 @@ def apply_board_event(player, position):
     """Checks the position and applies the associated event."""
     # Define events for specific positions
     board_events = {
+        1: ("A homeless guy felt bad for you and gave you some change.", "gain", 1),
+        2: ("You got mugged by a six year old, ", 'lose', 3),
         3: ("You found a dollar on the ground!", 'gain', 1),
+        4: ("You stood in a cool people only zone and got fined", 'lose', 4),
+        5: ("You thought you found 2 dollars! it was a leaf", 'gain', 0),
         7: ("You got pickpocketed of $2!", 'lose', 2),
         10: ("You found a hidden stash of coins!", 'gain', 3),
         12: ("A kind stranger gave you $5!", 'gain', 5),
