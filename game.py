@@ -112,7 +112,7 @@ if __name__ == '__main__':
             user_choice = input("Type 'a' to roll the dice, or 'q' to quit game: ")
 
             if user_choice.lower() == 'q':
-                print_dramatic_text("Thanks for playing Monopoly!") # Corrected typo
+                print_dramatic_text("Thanks for playing Mononpoly!") # Corrected typo
                 game_running = False
                 break # Exit the inner player loop
             elif user_choice.lower() == 'a':
@@ -122,9 +122,9 @@ if __name__ == '__main__':
                 roll1 = random.randint(1, 6)
                 roll2 = random.randint(1, 6)
                 print(f"First roll: {roll1}")
-                # draw_d6(roll1) # Assuming draw_d6 is working
+                draw_d6(roll1) # Assuming draw_d6 is working
                 print(f"Second roll: {roll2}")
-                # draw_d6(roll2) # Assuming draw_d6 is working
+                draw_d6(roll2) # Assuming draw_d6 is working
                 roll_total = roll1 + roll2
 
                 # Calculate new position and check if Go was passed
