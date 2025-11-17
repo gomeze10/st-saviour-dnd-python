@@ -1,7 +1,7 @@
 import random
 import time
-from player import Player  # Assuming 'player.py' defines a Player class
-from draw import draw_d6    # Assuming 'draw.py' defines a draw_d6 function
+from player import Player # Assuming player.py defines a Player class
+from draw import draw_d6 # Assuming draw.py defines a draw_d6 function
 
 def print_dramatic_text(text: str, delay=0.05):
     """Prints text character by character with a delay."""
@@ -14,36 +14,34 @@ def apply_board_event(player, position):
     """Checks the position and applies the associated event."""
     # Define events for specific positions
     board_events = {
-        3: ("You found a dollar on the ground!", "gain", 1),
-        7: ("You got pickpocketed of $2!", "lose", 2),
-        10: ("You found a hidden stash of coins!", "gain", 3),
-        12: ("A kind stranger gave you $5!", "gain", 5),
-        15: ("You received a small inheritance!", "gain", 8),
-        18: ("You stepped on a street vendor's merchandise and had to pay a $3 fine!", "lose", 3),
-        21: ("Lost your wallet! $5 gone!", "lose", 5),
-        24: ("Won a small bet on a street game!", "gain", 4),
-        25: ("You found a winning lottery ticket worth $10!", "gain", 10),
-        28: ("Had to pay for an emergency taxi ride: $3!", "lose", 3),
-        30: ("A rogue tax collector took $4 from you!", "lose", 4),
-        33: ("Found some forgotten cash in an old coat pocket!", "gain", 2),
-        36: ("Paid a surprise utility bill: $6!", "lose", 6),
-        38: ("You did a quick chore for a shop owner and earned $2!", "gain", 2),
-        40: ("Invested in a good cause, and it paid off! Gained $7!", "gain", 7),
-        42: ("Parking ticket fine: $4!", "lose", 4),
+        3: ("You found a dollar on the ground!", 'gain', 1),
+        7: ("You got pickpocketed of $2!", 'lose', 2),
+        10: ("You found a hidden stash of coins!", 'gain', 3),
+        12: ("A kind stranger gave you $5!", 'gain', 5),
+        15: ("You received a small inheritance!", 'gain', 8),
+        18: ("You stepped on a street vendor's merchandise and had to pay a $3 fine!", 'lose', 3),
+        21: ("Lost your wallet! $5 gone!", 'lose', 5),
+        24: ("Won a small bet on a street game!", 'gain', 4),
+        25: ("You found a winning lottery ticket worth $10!", 'gain', 10),
+        28: ("Had to pay for an emergency taxi ride: $3!", 'lose', 3),
+        30: ("A rogue tax collector took $4 from you!", 'lose', 4),
+        33: ("Found some forgotten cash in an old coat pocket!", 'gain', 2),
+        36: ("Paid a surprise utility bill: $6!", 'lose', 6),
+        38: ("You did a quick chore for a shop owner and earned $2!", 'gain', 2),
+        40: ("Invested in a good cause, and it paid off! Gained $7!", 'gain', 7),
+        42: ("Parking ticket fine: $4!", 'lose', 4),
     }
 
     if position in board_events:
         description, event_type, amount = board_events[position]
         event_happened = True
-
         # Check if the player is lucky enough to try and avoid the event
-        # 'player.luck' should be used, not an undefined 'luck' variable
         if player.luck > 70:
             print_dramatic_text(f"You landed on an event! Your high luck (score: {player.luck}) might help you avoid this event! Rolling for a save...")
             save_roll1 = random.randint(1, 6)
-            draw_d6(save_roll1)
+            # draw_d6(save_roll1) # Commented out as draw_d6 not provided in context
             save_roll2 = random.randint(1, 6)
-            draw_d6(save_roll2)
+            # draw_d6(save_roll2) # Commented out as draw_d6 not provided in context
             print(f"Save roll 1: {save_roll1}, Save roll 2: {save_roll2}")
 
             # If either die is greater than 4, the event does not happen
@@ -55,13 +53,12 @@ def apply_board_event(player, position):
 
         if event_happened:
             print_dramatic_text(description)
-            if event_type == "gain":
-                player.money += amount  # Modify player's money directly
+            if event_type == 'gain':
+                player.money += amount # Modify player's money directly
                 print(f"You gained ${amount}.")
-            elif event_type == "lose":
-                player.money -= amount  # Modify player's money directly
+            elif event_type == 'lose':
+                player.money -= amount # Modify player's money directly
                 print(f"You lost ${amount}.")
-
             # Ensure money doesn't drop below zero
             if player.money < 0:
                 player.money = 0
@@ -78,14 +75,13 @@ def create_players():
                 print("Please enter a number of players greater than or equal to 1.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-    
+
     players = []
     for i in range(num_players):
         player_name = input(f"Enter name for Player {i + 1}: ")
-        new_player = Player(player_name)
-        # Initialize the player's position and money
+        new_player = Player(player_name) # Initialize the player's position and money
         new_player.position = 0
-        new_player.money = 10  # Example starting money
+        new_player.money = 10 # Example starting money
         new_player.luck = random.randint(1, 100) # Example luck initialization
         players.append(new_player)
     return players
@@ -96,21 +92,23 @@ if __name__ == '__main__':
     board_length = 44
     rent_threshold = 20
     game_running = True
-
     print("\n--- Game Start ---")
+
+    for current_player in players:
+        # Display the luck value just once at the start of their turn
+        luck = current_player.luck
+        name = current_player.name
+        if luck <= 25:
+            print_dramatic_text(f"{name}\'s luck: {luck}, oh jeez....") # Corrected f-string syntax
+        elif luck > 25 and luck < 75:
+            print(f"{name}\'s luck: {luck}, not too bad")
+        elif luck > 75:
+            print_dramatic_text(f"{name}\'s luck: {luck}, wow very lucky for you...") # Corrected f-string syntax
+
     while game_running:
         for current_player in players:
             print(f"\n--- {current_player.name}'s Turn (Money: ${current_player.money}, Position: {current_player.position}) ---")
-
-            # Use player's individual luck for dramatic text
-            luck = current_player.luck
-            if luck <= 25:
-                print_dramatic_text(f'{luck}, oh jeez....') # Corrected f-string syntax
-            elif luck > 25 and luck < 75:
-                print (f'luck, not too bad')
-            elif luck > 75:
-                print_dramatic_text(f'{luck}, wow very lucky for you...') # Corrected f-string syntax
-
+            
             user_choice = input("Type 'a' to roll the dice, or 'q' to quit game: ")
 
             if user_choice.lower() == 'q':
@@ -124,14 +122,14 @@ if __name__ == '__main__':
                 roll1 = random.randint(1, 6)
                 roll2 = random.randint(1, 6)
                 print(f"First roll: {roll1}")
-                draw_d6(roll1) # Assuming draw_d6 is working
+                # draw_d6(roll1) # Assuming draw_d6 is working
                 print(f"Second roll: {roll2}")
-                draw_d6(roll2) # Assuming draw_d6 is working
+                # draw_d6(roll2) # Assuming draw_d6 is working
                 roll_total = roll1 + roll2
 
-                # Calculate new position and check if "Go" was passed
+                # Calculate new position and check if Go was passed
                 current_player.position = (current_player.position + roll_total) % board_length
-                print(f'You rolled a total of {roll_total}.')
+                print(f"You rolled a total of {roll_total}.")
                 print(f"Your current position is: {current_player.position}")
 
                 if current_player.position < previous_position:
@@ -145,8 +143,7 @@ if __name__ == '__main__':
 
                 # Check win condition after all events
                 if current_player.money >= rent_threshold:
-                    print_dramatic_text(f'{current_player.name} made rent! for this month..')
-                    # You can add game end logic or prompt to continue
-                    # Here it just continues to the next player/turn
+                    print_dramatic_text(f"{current_player.name} made rent! for this month..")
+                # Here it just continues to the next player/turn
             else:
                 print_dramatic_text("Invalid input. Please type 'a' to roll or 'q' to quit.")
