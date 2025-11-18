@@ -138,7 +138,7 @@ if __name__ == '__main__':
             user_choice = input("Type 'a' to roll the dice, or 'q' to quit game: ")
 
             if user_choice.lower() == 'q':
-                print_dramatic_text("Thanks for playing Mononpoly!") # Corrected typo
+                print_dramatic_text("Thanks for playing Monotpoly!") # Corrected typo
                 game_running = False
                 break # Exit the inner player loop
             elif user_choice.lower() == 'a':
